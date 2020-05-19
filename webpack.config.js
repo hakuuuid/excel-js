@@ -1,15 +1,24 @@
 const path = require('path')
-    //webpack plugins
+//webpack plugins
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
+const isProduction = process.env.NODE_ENV === 'production'
+const isDevelopment = !isProduction
+
+const filename = (ext) => isDevelopment ? `bundle.${ext}` : `bundle.[hash].${ext}`
 
 module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
-    entry: './index.js',
+    entry: ['@babel/polyfill', './index.js'],
+    devtool: isDevelopment ? 'source-map' : false,
+    devServer: {
+        hot: isDevelopment,
+        port: 3000
+    },
     resolve: {
         extensions: ['.js'],
         alias: {
@@ -18,13 +27,17 @@ module.exports = {
         }
     },
     output: {
-        filename: 'bundle.[hash].js',
+        filename: filename('js'),
         path: path.resolve(__dirname, 'dist')
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
-            template: 'index.html'
+            template: 'index.html',
+            minify: {
+                collapseWhitespace: isProduction,
+                removeComments: isProduction,
+            },
         }),
         new CopyWebpackPlugin({
             patterns: [{
@@ -33,7 +46,7 @@ module.exports = {
             }]
         }),
         new MiniCssExtractPlugin({
-            filename: 'bundle.[hash].css'
+            filename: filename('css')
         })
     ],
     module: {
