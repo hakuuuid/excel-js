@@ -62,6 +62,10 @@ module.exports = {
       patterns: [{
         from: path.resolve(__dirname, 'src/favicon.ico'),
         to: path.resolve(__dirname, 'dist'),
+      },
+      {
+        from: path.resolve(__dirname, 'src/table-icon.png'),
+        to: path.resolve(__dirname, 'dist'),
       }],
     }),
     new MiniCssExtractPlugin({
