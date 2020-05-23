@@ -2,7 +2,7 @@ import { $ } from 'src/utils/dom';
 
 export class Excel {
   constructor(selector, options) {
-    this.$element = document.querySelector(selector)
+    this.$element = $(selector)
     this.components = options.components || []
   }
 
@@ -20,7 +20,7 @@ export class Excel {
   }
 
   render() {
-    this.$element.append(this.getRoot().$element)
+    this.$element.append(this.getRoot())
     this.components.forEach((component) => component.init())
   }
 }

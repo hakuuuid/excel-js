@@ -1,8 +1,8 @@
 class Dom {
   constructor(selector) {
     this.$element = typeof selector === 'string'
-	    ? document.querySelector(selector)
-			: selector
+      ? document.querySelector(selector)
+      : selector
   }
 
   html(html) {

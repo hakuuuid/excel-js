@@ -1,3 +1,5 @@
+import { eventCreator } from 'src/utils/helpers';
+
 export class DomListener {
   constructor($root, listeners = []) {
     if (!$root) {
@@ -10,14 +12,19 @@ export class DomListener {
 
   initDomListeners() {
     this.listeners.forEach((listener) => {
-      this.$root.on(this.listeners, () => this['onInput'])
+      // making event type like 'onClick' way
+      const event = eventCreator(listener)
+      if (!this[event]) {
+        console.log(this)
+        throw new Error(
+            `Method ${event} is not implemented in ${this.name} Component`
+        )
+      }
+      this.$root.on(listener, this[event].bind(this))
     })
   }
 
-  on(listener) {
-
-  }
-
+  // TODO: realize delete events method
   removeDomListeners() {
 
   }
