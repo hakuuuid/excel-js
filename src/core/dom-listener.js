@@ -15,17 +15,21 @@ export class DomListener {
       // making event type like 'onClick' way
       const event = eventCreator(listener)
       if (!this[event]) {
-        console.log(this)
         throw new Error(
             `Method ${event} is not implemented in ${this.name} Component`
         )
       }
-      this.$root.on(listener, this[event].bind(this))
+      // this[event] always has right context
+      this[event] = this[event].bind(this)
+      this.$root.on(listener, this[event])
     })
   }
 
-  // TODO: realize delete events method
   removeDomListeners() {
-
+    this.listeners.forEach((listener) => {
+      // making event type like 'onClick' way
+      const event = eventCreator(listener)
+      this.$root.off(listener, this[event])
+    })
   }
 }
