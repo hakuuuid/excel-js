@@ -1,4 +1,4 @@
-import {CHAR_CODE} from 'src/constants/constants';
+import { CHAR_CODE } from 'src/constants/constants';
 
 function toChar(_, index) {
   return String.fromCharCode(CHAR_CODE.A + index)
@@ -12,14 +12,21 @@ function createCell(content) {
 
 function createColumn(col) {
   return `
-         <div class="column"> ${col}</div>
-        `
+   <div class="column">
+    ${col}
+    <div class="col-resize" data-resize="col"></div>
+    </div>
+    `
 }
 
 function createRow(index, content) {
+  const resize = index ? `<div class="row-resize" data-resize="row"></div>` : ''
   return `
     <div class="row">
-        <div class="row-info">${index}</div>
+        <div class="row-info">
+            ${index}
+            ${resize}
+        </div>
         <div class="row-data">${content}</div>
     </div>
   `
@@ -46,7 +53,6 @@ export function createTable(rows = 10) {
     // to start rows from 1
     rowsArray.push(createRow(i + 1, cells))
   }
-
 
   return rowsArray.join('')
 }
