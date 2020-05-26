@@ -4,15 +4,15 @@ function toChar(_, index) {
   return String.fromCharCode(CHAR_CODE.A + index)
 }
 
-function createCell(content) {
+function createCell(_, col) {
   return `
-   <div class="cell" contenteditable>${content}</div>
+   <div class="cell" data-col="${col}" contenteditable></div>
   `
 }
 
-function createColumn(col) {
+function createColumn(col, index) {
   return `
-   <div class="column">
+   <div class="column" data-type="resizable" data-col="${index}">
     ${col}
     <div class="col-resize" data-resize="col"></div>
     </div>
@@ -22,7 +22,7 @@ function createColumn(col) {
 function createRow(index, content) {
   const resize = index ? `<div class="row-resize" data-resize="row"></div>` : ''
   return `
-    <div class="row">
+    <div class="row" data-type="resizable">
         <div class="row-info">
             ${index}
             ${resize}
