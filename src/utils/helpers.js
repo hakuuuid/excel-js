@@ -9,3 +9,7 @@ export function eventCreator(event) {
 
   return 'on' + capitalize(event)
 }
+
+export function shouldResize(event) {
+  return event.target.dataset.resize
+}
