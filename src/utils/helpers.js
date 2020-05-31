@@ -13,3 +13,11 @@ export function eventCreator(event) {
 export function shouldResize(event) {
   return event.target.dataset.resize
 }
+
+export function isCell(event) {
+  return event.target.dataset.type === 'cell'
+}
+
+export function isMultiSelectCell(event) {
+  return event.target.dataset.type === 'cell' && event.shiftKey
+}

@@ -1,16 +1,30 @@
-import { CHAR_CODE } from 'src/constants/constants';
+import {CHAR_CODE} from 'src/constants/constants';
 
 function toChar(_, index) {
   return String.fromCharCode(CHAR_CODE.A + index)
 }
 
-function createCell(_, col) {
-  return `
-   <div class="cell" data-col="${col}" contenteditable></div>
-  `
+// function createCell(_, col) {
+//   return `
+//    <div class="cell" data-col="${col}" contenteditable></div>
+//   `
+// }
+
+function toCell(row) {
+  return function(_, col) {
+    return `
+        <div 
+        class="cell" 
+        data-col="${col}" 
+        data-type="cell" 
+        data-id="${row}:${col}" 
+        contenteditable
+        ></div>
+    `
+  }
 }
 
-function createColumn(col, index) {
+function toColumn(col, index) {
   return `
    <div class="column" data-type="resizable" data-col="${index}">
     ${col}
@@ -39,19 +53,19 @@ export function createTable(rows = 10) {
   const cols = new Array(colsCount)
       .fill('')
       .map(toChar)
-      .map(createColumn)
-      .join('')
-
-  const cells = new Array(colsCount)
-      .fill('')
-      .map(createCell)
+      .map(toColumn)
       .join('')
 
   rowsArray.push(createRow('', cols))
 
-  for ( let i = 0; i < rows; i++) {
+
+  for (let row = 0; row < rows; row++) {
+    const cells = new Array(colsCount)
+        .fill('')
+        .map(toCell(row))
+        .join('')
     // to start rows from 1
-    rowsArray.push(createRow(i + 1, cells))
+    rowsArray.push(createRow(row + 1, cells))
   }
 
   return rowsArray.join('')

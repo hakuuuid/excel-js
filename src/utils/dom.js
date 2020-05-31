@@ -1,8 +1,8 @@
 class Dom {
   constructor(selector) {
     this.$element = typeof selector === 'string'
-			? document.querySelector(selector)
-			: selector
+      ? document.querySelector(selector)
+      : selector
   }
 
   html(html) {
@@ -29,8 +29,11 @@ class Dom {
   append(node) {
     if (node instanceof Dom) node = node.$element
 
-    if (Element.prototype.append) this.$element.append(node)
-    else this.$element.appendChild(node)
+    if (Element.prototype.append) {
+      this.$element.append(node)
+    } else {
+      this.$element.appendChild(node)
+    }
 
     return this
   }
@@ -39,24 +42,36 @@ class Dom {
     return this.$element.dataset
   }
 
-  closest(selector) {
-    return $(this.$element.closest(selector))
-  }
-
   getCoords() {
     return this.$element.getBoundingClientRect()
+  }
+
+  closest(selector) {
+    return $(this.$element.closest(selector))
   }
 
   findAll(selector) {
     return this.$element.querySelectorAll(selector)
   }
 
+  find(selector) {
+    return $(this.$element.querySelector(selector))
+  }
+
+  addClass(className) {
+    this.$element.classList.add(className)
+  }
+
+  removeClass(className) {
+    this.$element.classList.remove(className)
+  }
+
   styles(styles = {}) {
     Object
-	      .keys(styles)
-	      .forEach( (key) => {
-      	this.$element.style[key] = styles[key]
-	      })
+        .keys(styles)
+        .forEach((key) => {
+          this.$element.style[key] = styles[key]
+        })
   }
 }
 
