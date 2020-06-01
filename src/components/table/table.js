@@ -1,7 +1,12 @@
 import {ExcelComponent} from 'core/excel-component';
 import {createTable} from 'src/components/table/table.template';
 import {tableResize} from 'src/components/table/table.resize';
-import {isCell, isMultiSelectCell, shouldResize} from 'src/utils/helpers';
+import {
+  isCell,
+  isMultiSelectCell,
+  shouldResize,
+  range,
+} from 'src/utils/helpers';
 import {TableSelection} from 'src/utils/table-selection';
 import {$} from 'src/utils/dom';
 
@@ -35,7 +40,15 @@ export class Table extends ExcelComponent {
       tableResize(event, this.$root)
     } else if (isMultiSelectCell(event)) {
       const $target = $(event.target)
-      this.selection.selectGroup($target)
+      const target = $target.id(true)
+      console.log(target)
+      const current = this.selection.current.id(true)
+
+      const cols = range(current.col, target.col)
+      const rows = range(current.row, target.row)
+
+      console.log('cols', cols)
+      console.log('row', rows)
     } else if (isCell(event)) {
       const $target = $(event.target)
       this.selection.select($target)

@@ -1,11 +1,11 @@
-import { ExcelComponent } from 'core/excel-component';
+import { ExcelComponent } from "core/excel-component";
 
 export class Header extends ExcelComponent {
-	static className = 'excel__header'
+  static className = "excel__header";
 
-	toHTML() {
-	  return `
-			 <div class="header-input">
+  toHTML() {
+    return `
+			<div class="header-input">
             <img src="table-icon.png">
             <input value="New Table" type="text" class="input">
         </div>
@@ -18,6 +18,6 @@ export class Header extends ExcelComponent {
                 <i class="material-icons"> exit_to_app </i>
             </div>
         </div>
-		`
-	}
+		`;
+  }
 }

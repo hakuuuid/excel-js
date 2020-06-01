@@ -21,3 +21,12 @@ export function isCell(event) {
 export function isMultiSelectCell(event) {
   return event.target.dataset.type === 'cell' && event.shiftKey
 }
+
+export function range(start, end) {
+  if (start > end) {
+    [end, start] = [start, end]
+  }
+  return new Array(end - start + 1)
+      .fill('')
+      .map((_, index) => start + index )
+}
