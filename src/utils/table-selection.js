@@ -1,4 +1,4 @@
-import {className} from "../constants/constants";
+import {className} from '../constants/constants';
 
 export class TableSelection {
   constructor() {
@@ -18,7 +18,10 @@ export class TableSelection {
     this.group = []
   }
 
-  selectGroup($element) {
+  selectGroup($group = []) {
     this.clear()
+
+    this.group = $group
+    this.group.forEach(($el) => $el.addClass(className))
   }
 }

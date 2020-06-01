@@ -30,3 +30,16 @@ export function range(start, end) {
       .fill('')
       .map((_, index) => start + index )
 }
+
+export function matrix(target, current) {
+  const tar = target.id(true)
+  const cur = current.id(true)
+
+  const cols = range(cur.col, tar.col)
+  const rows = range(cur.row, tar.row)
+
+  return cols.reduce((acc, col) => {
+    rows.forEach((row) => acc.push(`${row}:${col}`))
+    return acc;
+  }, [])
+}
