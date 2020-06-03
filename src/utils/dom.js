@@ -70,6 +70,11 @@ class Dom {
     return $(this.$element.querySelector(selector))
   }
 
+  focus() {
+    this.$element.focus()
+    return this
+  }
+
   addClass(className) {
     this.$element.classList.add(className)
   }
