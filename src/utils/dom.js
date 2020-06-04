@@ -13,6 +13,14 @@ class Dom {
     return this.$element.outerHTML.trim()
   }
 
+  textContent(text) {
+    if (typeof text === 'string') {
+      this.$element.textContent = text
+      return this
+    }
+    return this.$element.textContent.trim()
+  }
+
   clear() {
     this.html('')
     return this

@@ -37,13 +37,14 @@ module.exports = {
   devtool: isDevelopment ? 'source-map' : false,
   devServer: {
     hot: isDevelopment,
-    port: 3000,
+    port: 9000,
   },
   resolve: {
     extensions: ['.js'],
     alias: {
       'src': path.resolve(__dirname, 'src'),
       'core': path.resolve(__dirname, 'src/core'),
+      'utils': path.resolve(__dirname, 'src/utils'),
     },
   },
   output: {
